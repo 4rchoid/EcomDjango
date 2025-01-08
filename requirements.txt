@@ -1,2 +1,5 @@
 Django==3.2.9
 djangorestframework==3.12.4
+PyMySQL
+redis
+django-redis

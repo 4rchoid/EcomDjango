@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import pymysql
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+pymysql.install_as_MySQLdb()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -77,8 +77,21 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # Use MySQL backend
+        'NAME': 'ecom_django',                 # Your database name
+        'USER': 'archit',                        # MySQL username
+        'PASSWORD': 'archit',            # MySQL password
+        'HOST': 'localhost',                   # Database host (use 'localhost' for local)
+        'PORT': '3306',                        # MySQL default port
+    }
+}
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',  # Redis is running locally on port 6379, using DB 1
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',  # Default Redis client
+        }
     }
 }
 
